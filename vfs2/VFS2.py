@@ -95,8 +95,8 @@ class VFS2:
                 raise ValueError("Not a VFS2 file")
             (dir_count, file_count) = struct.unpack("<II", f.read(8))
 
-            f.read(0x0C)  # skip 0x10 (unknown) bytes
-
+            metadata_size = struct.unpack("<III", f.read(0x0C))
+            (_unknown, dir_metadata_size, file_metadata_size) = metadata_size
             # print(f"Directories: {dir_count}, Files: {file_count}")
 
             next_dir_id = 1
